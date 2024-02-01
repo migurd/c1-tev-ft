@@ -1,4 +1,4 @@
-const { connect_db, disconnect_db, connection, connectionConfig } = require('../db.js');
+const { connect_db, disconnect_db, connection } = require('../db.js');
 
 // Insert
 function insert_voto(team_id) {
@@ -16,7 +16,7 @@ function insert_voto(team_id) {
         console.error('Error inserting data:', error);
     } finally {
         // Disconnect when done
-        disconnect_db();
+        // disconnect_db();
     }
 }
 
@@ -48,13 +48,13 @@ async function get_votos_count(team_id) {
         console.error('Error getting vote count:', error);
     } finally {
         // Disconnect when done
-        disconnect_db();
+        // disconnect_db();
     }
 }
+// insert_voto(1);
+// console.log(get_votos_count(1))
 
 module.exports = {
     insert_voto,
     get_votos_count,
 }
-insert_voto(1);
-// console.log(get_votos_count(1))

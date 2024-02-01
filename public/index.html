@@ -23,7 +23,6 @@
             try {
                 const response = await fetch('/get_initial_votes');
                 const data = await response.json();
-
                 // Update the vote counts on the page
                 updateVoteCount(1, data.votes.team1);
                 updateVoteCount(2, data.votes.team2);
@@ -47,11 +46,11 @@
                 console.error('Error al votar:', data.message);
             } */
         }
-
+    
         function updateVoteCount(team, count) {
             const countElement = document.getElementById(`count_${team}`);
             if (countElement) {
-                countElement.textContent = count;
+                countElement.innerHTML = count + '';
             }
         }
         </script>

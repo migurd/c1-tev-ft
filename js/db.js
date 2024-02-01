@@ -3,35 +3,31 @@
 const mysql = require('mysql2');
 
 // Replace 'your_database', 'your_user', 'your_password' with your actual database configuration
-const connectionConfig = {
+const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: 'cisco123',
     database: 'shitsu',
-};
-
-let connection;
+});
 
 const connect_db = () => {
-    // Connect to the MySQL server
-    connection = mysql.createConnection(connectionConfig);
-    connection.connect((error) => {
-        if (error) {
-            console.error('Error connecting to MySQL:', error);
+    connection.connect((err) => {
+        if (err) {
+            console.error('Error connecting to MySQL:', err);
             return;
         }
-        console.log('Connected to MySQL server.');
+        console.log('Connected to MySQL database');
     });
-}
+};
 
+// Perform MySQL queries or operations here
 const disconnect_db = () => {
-    // Close the MySQL connection
-    connection.end((error) => {
-        if (error) {
-            console.error('Error closing MySQL connection:', error);
+    connection.end((err) => {
+        if (err) {
+            console.error('Error disconnecting from MySQL:', err);
             return;
         }
-        console.log('MySQL connection closed.');
+        console.log('Disconnected from MySQL database');
     });
 };
 
@@ -39,5 +35,4 @@ module.exports = {
     connect_db,
     disconnect_db,
     connection,
-    connectionConfig
 };
