@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Votación</title>
+    </head>
+    <body>
+        <button value="1" onclick="vote(1)">Venados</button>
+        <p class="votos_1">Votos: <span id="count_1">0</span></p>
+
+        <button value="2" onclick="vote(2)">Naranjeros</button>
+        <p class="votos_2">Votos: <span id="count_2">0</span></p>
+
+        <!-- Agregar este bloque de script -->
+        <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Fetch initial data from the server
+            await loadInitialData();
+        });
+
+        async function loadInitialData() {
+            try {
+                const response = await fetch('/get_initial_votes');
+                const data = await response.json();
+
+                // Update the vote counts on the page
+                updateVoteCount(1, data.votes.team1);
+                updateVoteCount(2, data.votes.team2);
+            } catch (error) {
+                console.error('Error fetching initial data:', error);
+            }
+        } 
+    
+        async function vote(team) {
+            const response = await fetch(`/votar/${team}`, { method: 'POST' });
+            alert(`Se votó por el equipo ${team}`);
+            /* const data = await response.json();
+            const totalVotes = await get_votos_count(equipo);
+
+            if (data.success) {
+                const countElement = document.getElementById(`count_${team}`);
+                if (countElement) {
+                    countElement.textContent = data.totalVotes;
+                }
+            } else {
+                console.error('Error al votar:', data.message);
+            } */
+        }
+
+        function updateVoteCount(team, count) {
+            const countElement = document.getElementById(`count_${team}`);
+            if (countElement) {
+                countElement.textContent = count;
+            }
+        }
+        </script>
+
+    </body>
+</html>

@@ -1,4 +1,4 @@
-const { connect_db, disconnect_db, connection } = require('../server.js');
+const { connect_db, disconnect_db, connection } = require('../db.js');
 
 const read_equipo = (id) => {
     return new Promise((resolve, reject) => {
@@ -25,11 +25,15 @@ const read_equipo = (id) => {
     });
 };
 
+module.exports = {
+    read_equipo,
+}
+
 // Usage
-read_equipo(1)
-    .then((result) => {
-        console.log(result);
-    })
-    .catch((error) => {
-        console.error('Error reading data:', error);
-    });
+// read_equipo(1)
+//     .then((result) => {
+//         console.log(result);
+//     })
+//     .catch((error) => {
+//         console.error('Error reading data:', error);
+//     });
